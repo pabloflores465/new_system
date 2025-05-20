@@ -37,8 +37,9 @@
         <!-- Database -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId> <!-- Use a version compatible with your Oracle DB -->
-            <version>19.3.0.0</version> <!-- Example version, adjust as needed -->
+            <artifactId>ojdbc11</artifactId>
+            <version>23.3.0.23.09</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate.orm</groupId>
@@ -57,7 +58,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.30</version> <!-- Explicitly set version managed by Spring Boot 3.2.0 -->
         </dependency>
 
         <!-- Spring Boot DevTools for automatic restarts -->
@@ -86,6 +87,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version> <!-- Use the same version as parent or a suitable one -->
+                <configuration>
+                    <source>${java.version}</source> <!-- Ensure java.version is defined, inherits from parent -->
+                    <target>${java.version}</target> <!-- Ensure java.version is defined, inherits from parent -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.30</version> <!-- Hardcode the version -->
+                        </path>
+                        <!-- Other annotation processors like mapstruct if you use them -->
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
         </plugins>
     </build>

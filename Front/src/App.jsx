@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import UserManagementPage from "./pages/UserManagementPage";
+import ReportsPage from "./pages/ReportsPage";
+import "./App.css"; // Assuming you have some global styles
 
-function App() {
-  const [count, setCount] = useState(0)
-
+// A simple Home component for the root path
+function HomePage() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ padding: "20px" }}>
+      <h1>SAT Simulation System</h1>
+      <p>Welcome to the SAT Simulation System frontend.</p>
+      <p>Navigate using the links above.</p>
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <div>
+        <nav style={{ padding: "10px", backgroundColor: "#eee" }}>
+          <Link to="/" style={{ marginRight: "10px" }}>
+            Home
+          </Link>
+          <Link to="/admin/users" style={{ marginRight: "10px" }}>
+            User Management
+          </Link>
+          <Link to="/admin/reports">Reports</Link>
+          {/* TODO: Add links to Reports page etc. */}
+        </nav>
+
+        <hr />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/admin/users" element={<UserManagementPage />} />
+          <Route path="/admin/reports" element={<ReportsPage />} />
+          {/* TODO: Add routes for Reports page etc. */}
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
